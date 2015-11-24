@@ -17,8 +17,9 @@ defaultBoard(
 displayBoard([]).
 displayBoard([Head | Tail]):- 
 	length(Head, Size),
-	displayBorder(Size),
-	displayRows([Head | Tail]).
+	write('   '), displayColIndexes(Size, 0), nl,
+	write('   '), displayBorder(Size),
+	displayRows([Head | Tail], 97).
 
 displayBorder(0):- write('-'), nl.
 displayBorder(Number):-
@@ -26,18 +27,32 @@ displayBorder(Number):-
 	NextNumber is Number - 1,
 	displayBorder(NextNumber).
 
-displayRows([]).
-displayRows([Head | Tail]):-
-	displayRow(Head),
+displayRows([], _).
+displayRows([Head | Tail], RowNumber):-
+	displayRowIndex(RowNumber),
 	length(Head, Size),
-	displayBorder(Size),
-	displayRows(Tail).
+	displayRow(Head),
+	write('   '), displayBorder(Size),
+	NewRowNumber is RowNumber + 1,
+	displayRows(Tail, NewRowNumber).
 
 displayRow([]):- 
 	write('|'), nl.
 displayRow([Head | Tail]):-
 	write('| '), write(Head), write(' '), displayRow(Tail).
 
+displayColIndexes(Size, Size).
+displayColIndexes(Size, Index):-
+	NewIndex is Index + 1,
+	NewIndex < 10,
+	write('  '), write(NewIndex),  write(' '),
+	displayColIndexes(Size, NewIndex).
+displayColIndexes(Size, Index):-
+	NewIndex is Index + 1,
+	write('  '), write(NewIndex),
+	displayColIndexes(Size, NewIndex).
+
+displayRowIndex(CharCode):- format(' ~c ', [CharCode]).
 
 %--------------------------------------------------------%
 %------Functions to generate a board of any size---------%
@@ -53,4 +68,42 @@ generateBoard(RowsLeft, RowSize, ResultBoard):-
 
 
 generateRow([], []).
-generateRow([Head | Tail], [' ' | RTail]):- generateRow(Tail, RTail).
+generateRow([_ | Tail], [' ' | RTail]):- generateRow(Tail, RTail).
+
+
+
+%--------------------------------------------------------%
+%-----------Functions to edit the board info-------------%
+%--------------------------------------------------------%
+
+	%CLEAR %POSITION
+clearPosition(_, _, [], _):- nl, write('clearPosition out of range.'), abort.
+
+clearPosition(0, 1, [_ | Tail], [' ' | Tail]).
+
+clearPosition(0, Col, [Head | Tail], [Head | RTail]):-
+	NewCol is Col - 1,
+	clearPosition(0, NewCol, Tail, RTail).
+
+clearPosition(1, Col, [Head | Tail], [RHead | Tail]):-
+	clearPosition(0, Col, Head, RHead).
+
+clearPosition(Row, Col, [Head | Tail], [Head | RTail]):-
+	NewRow is Row - 1,
+	clearPosition(NewRow, Col, Tail, RTail).
+
+	%SET %POSITION
+setPosition(_, _, _, [], _):- nl, write('setPosition out of range.'), abort.
+
+setPosition(0, 1, Info, [_ | Tail], [Info | Tail]).
+
+setPosition(0, Col, Info, [Head | Tail], [Head | RTail]):-
+	NewCol is Col - 1,
+	setPosition(0, NewCol, Info, Tail, RTail).
+
+setPosition(1, Col, Info, [Head | Tail], [RHead | Tail]):-
+	setPosition(0, Col, Info, Head, RHead).
+
+setPosition(Row, Col, Info, [Head | Tail], [Head | RTail]):-
+	NewRow is Row - 1,
+	setPosition(NewRow, Col, Info, Tail, RTail).

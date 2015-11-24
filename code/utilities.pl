@@ -10,6 +10,13 @@ getInteger(Input) :-	get_code(Code),
 						Input is Code - 48,
 						get_char(_).
 
+getDoubleDigitInteger(Input):-	get_code(FirstCode),
+								I1 is FirstCode - 48,
+								get_code(SecondCode),
+								I2 is SecondCode - 48,
+								Input is I1*10 + I2,
+								get_char(_).
+
 getEnter :-	get_char(_).
 
 startSeed:-
@@ -18,6 +25,27 @@ startSeed:-
 	setrand(random(Seed, X, Y, Z)), !.
 	
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 %----------------------------------------------------------------------------%

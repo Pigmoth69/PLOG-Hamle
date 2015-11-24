@@ -1,4 +1,3 @@
-
 mainMenu:- 
 
 	printMainMenu,
@@ -46,13 +45,12 @@ howTo:-
 
 
 getBoardSize(Size):- 
-
 	printGetBoardSize,
-	getInteger(Size).
+	getDoubleDigitInteger(Size).
 
 printGetBoardSize:-
 	clearScreen,
 	write('*********************************'), nl,
 	write('||          New Game           ||'), nl,
 	write('*********************************'), nl,
-	write('Insert the board dimension: '), nl.
+	write('Insert the board dimension(XX): ').
