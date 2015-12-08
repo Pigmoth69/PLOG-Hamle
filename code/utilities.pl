@@ -19,10 +19,6 @@ getDoubleDigitInteger(Input):-	get_code(FirstCode),
 
 getEnter :-	get_char(_).
 
-startSeed:-
-	now(Usec), Seed is Usec mod 30269,
-	getrand(random(X, Y, Z, _)),
-	setrand(random(Seed, X, Y, Z)), !.
 	
 	
 

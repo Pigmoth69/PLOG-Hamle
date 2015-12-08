@@ -1,12 +1,41 @@
-defaultBoard(
+defaultInfoList(
 	[
-		[' ', '3', ' ', ' ', ' ', '2'],
-		[' ', ' ', '3', ' ', '4', ' '],
-		[' ', '1', ' ', ' ', ' ', ' '],
-		['5', ' ', ' ', '2', ' ', '2'],
-		[' ', ' ', ' ', ' ', ' ', ' '],
-		[' ', '4', ' ', ' ', '2', ' ']
+		0, 3, 0, 0, 0, 2,
+		0, 0, 3, 0, 4, 0,
+		0, 1, 0, 0, 0, 0,
+		5, 0, 0, 2, 0, 2,
+		0, 0, 0, 0, 0, 0,
+		0, 4, 0, 2, 0, 0
 	]).
+
+defaultIndexList(
+	[
+		0, 1, 0, 0, 0, 2,
+		0, 0, 3, 0, 4, 0,
+		0, 5, 0, 0, 0, 0,
+		6, 0, 0, 7, 0, 8,
+		0, 0, 0, 0, 0, 0,
+		0, 9, 0, 10, 0, 0
+	]).
+
+
+setUpBoard([], _, []).
+setUpBoard(List, N, [Row | TBoard]):-
+	length(List, Length),
+	NewLength is Length - N, 
+	sublist(List, Row, 0, N, NewLength),
+	sublist(List, NewList, N, NewLength, 0),
+	setUpBoard(NewList, N, TBoard).
+
+setFinalBoard(ClearedBoard, _, _, _, [], _, ClearedBoard).
+setFinalBoard(ClearedBoard, Info, Index, [Head | Tail], [BHead | BTail], N, FinalBoard):-
+	setFinalBoard(ClearedBoard, Info, Index, Tail, BTail, N, F),
+	TempRow is Head//N, Row is TempRow+1, TempCol is Head mod N, Col is TempCol + 1,
+	nth1(Pos, Index, BHead),
+	nth1(Pos, Info, Value),
+	write(Head), write(' '), write(Row), write(' '),  write(Col), nl,
+	setPosition(Row, Col, Value, F, FinalBoard).
+
 
 
 
@@ -38,6 +67,8 @@ displayRows([Head | Tail], RowNumber):-
 
 displayRow([]):- 
 	write('|'), nl.
+displayRow([0 | Tail]):-
+	write('| '), write(' '), write(' '), displayRow(Tail).
 displayRow([Head | Tail]):-
 	write('| '), write(Head), write(' '), displayRow(Tail).
 
@@ -68,7 +99,7 @@ generateBoard(RowsLeft, RowSize, ResultBoard):-
 
 
 generateRow([], []).
-generateRow([_ | Tail], [' ' | RTail]):- generateRow(Tail, RTail).
+generateRow([_ | Tail], [0 | RTail]):- generateRow(Tail, RTail).
 
 
 
@@ -107,3 +138,14 @@ setPosition(1, Col, Info, [Head | Tail], [RHead | Tail]):-
 setPosition(Row, Col, Info, [Head | Tail], [Head | RTail]):-
 	NewRow is Row - 1,
 	setPosition(NewRow, Col, Info, Tail, RTail).
+
+	%CLEAR %BOARD 
+clearBoard([], []).
+clearBoard([Head | Tail], [RHead | RTail]):-
+	clearRow(Head, RHead),
+	clearBoard(Tail, RTail).
+
+	%CLEAR %ROW 
+clearRow([], []).
+clearRow([_ | Tail], [' ' | RTail]):-
+	clearRow(Tail, RTail).
