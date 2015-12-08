@@ -27,8 +27,6 @@ getBlackCells([Head | Tail], [Head | Blacklist]):-
 
 
 
-
-
 %------------------------------------%
 %------------RESTRICTIONS------------%
 %------------------------------------%
@@ -39,35 +37,63 @@ solution(Values, NumberWhites, N, Result):-
 	domain(Result, 0, 4),
 	count(0, Result, #=, NumberWhites),
 
-
-	element(Position, Result, Value)
-	moveBlackCell(Position, N, Value, Values),
-	%checkBlackPosition(Position, N, Result),
-
-	/*print(Result),nl,*/
+	functionTest(Values, 1, N, Result),
+	checkBlacksAdjacentCells(Result, N),
+	print(Result),nl,
 	labeling([], Result).
 
+
+functionTest([], _, _, _).
+functionTest([Value | Tail], Position, N, Result):-
+	Value #\= 0, 
+	moveBlackCell(Value, Position, N, Result),
+	/*element(N, Result, Value),
+	Value #> 0,*/
+	NextPosition #= Position + 1,
+	functionTest(Tail, NextPosition, N, Result).
+functionTest([_ | Tail], Position, N, Result):-
+	NextPosition #= Position + 1,
+	functionTest(Tail, NextPosition, N, Result).
+
+
 %move up
-moveBlackCell(Position, N, Value, Values):-
-	OriginalPosition #= Position + N*Value,
-	element(OriginalPosition, Values, Value).
+moveBlackCell(Value, Position, N, Result):-
+	BlackPosition #= Position - N*Value,
+	element(BlackPosition, Result, 1).	
 
-%move down
-moveBlackCell(Position, N, Value, Values):-
-	OriginalPosition #= Position - N*Value,
-	element(OriginalPosition, Values, Value).
+%moved down
+moveBlackCell(Value, Position, N, Result):-
+	BlackPosition #= Position - N*Value,
+	element(BlackPosition, Result, 2).
 
-%move right
-moveBlackCell(Position, _, Value, Values):-
-	OriginalPosition #= Position - Value,
-	%sameRowAfterMovingRight(OriginalPosition, Position, N),
-	element(OriginalPosition, Values, Value).
+%moved right
+moveBlackCell(Value, Position, N, Result):-
+	BlackPosition #= Position + Value,
+	element(BlackPosition, Result, 3).
 
-%move left
-moveBlackCell(Position, _, Value, Values):-
-	OriginalPosition #= Position + Value,
-	%sameRowAfterMovingLeft(OriginalPosition, Position, N),
-	element(OriginalPosition, Values, Value).
+%moved left
+moveBlackCell(Value, Position, N, Result):-
+	BlackPosition #= Position - Value,
+	element(BlackPosition, Result, 4).
+
+checkBlacksAdjacentCells(Result, N, Position):-
+	N*N #< Position.
+checkBlacksAdjacentCells(Result, N, Position):-
+	element(Position, Result, Value),
+	Value #> 0,
+	Up #= Position - N,
+	Down #= Position + N,
+	Right #= Position + 1,
+	Left #= Position - 1,
+	element(Up, Result, UpValue),
+	element(Down, Result, DownValue),
+	element(Right, Result, RightValue),
+	element(Left, Result, LeftValue),
+	UpValue #= 0, DownValue #= 0, RightValue #= 0, LeftValue #= 0,
+	NextPosition #= Position + 1,
+	checkBlacksAdjacentCells(Result, N, NextPosition).
+
+
 
 sameRowAfterMovingRight(OriginalPosition, Position, N):-
 	Position mod N #= 1.
@@ -78,3 +104,4 @@ sameRowAfterMovingLeft(OriginalPosition, Position, N):-
 	OriginalPosition mod N #= 1.
 sameRowAfterMovingLeft(OriginalPosition, Position, N):-
 	Position mod N #< OriginalPosition mod N.
+
