@@ -32,76 +32,30 @@ getBlackCells([Head | Tail], [Head | Blacklist]):-
 %------------------------------------%
 
 solution(Values, NumberWhites, N, Result):-
-	length(Values, L),
-	length(Result, L),
+	length(Values, Length),
+	length(Result, Length),
 	domain(Result, 0, 4),
-	count(0, Result, #=, NumberWhites),
 
-	functionTest(Values, 1, N, Result),
-	checkBlacksAdjacentCells(Result, N),
+	count(0, Result, #=, NumberWhites),
+	blacksNotAdjacent(Result, N),                          
+
 	print(Result),nl,
 	labeling([], Result).
 
+blacksNotAdjacent(Result, N):-
+	setUpBoard(Result, N, ResultBoard),
+	transpose(ResultBoard, TResultBoard),
+	checkAdjacentCells(TResultBoard),
+	checkAdjacentCells(ResultBoard).
 
-functionTest([], _, _, _).
-functionTest([Value | Tail], Position, N, Result):-
-	Value #\= 0, 
-	moveBlackCell(Value, Position, N, Result),
-	/*element(N, Result, Value),
-	Value #> 0,*/
-	NextPosition #= Position + 1,
-	functionTest(Tail, NextPosition, N, Result).
-functionTest([_ | Tail], Position, N, Result):-
-	NextPosition #= Position + 1,
-	functionTest(Tail, NextPosition, N, Result).
+checkAdjacentCells([]).
+checkAdjacentCells([Head | Tail]):-
+	checkAdjacentCellsRow(Head),
+	checkAdjacentCells(Tail).
 
-
-%move up
-moveBlackCell(Value, Position, N, Result):-
-	BlackPosition #= Position - N*Value,
-	element(BlackPosition, Result, 1).	
-
-%moved down
-moveBlackCell(Value, Position, N, Result):-
-	BlackPosition #= Position - N*Value,
-	element(BlackPosition, Result, 2).
-
-%moved right
-moveBlackCell(Value, Position, N, Result):-
-	BlackPosition #= Position + Value,
-	element(BlackPosition, Result, 3).
-
-%moved left
-moveBlackCell(Value, Position, N, Result):-
-	BlackPosition #= Position - Value,
-	element(BlackPosition, Result, 4).
-
-checkBlacksAdjacentCells(Result, N, Position):-
-	N*N #< Position.
-checkBlacksAdjacentCells(Result, N, Position):-
-	element(Position, Result, Value),
-	Value #> 0,
-	Up #= Position - N,
-	Down #= Position + N,
-	Right #= Position + 1,
-	Left #= Position - 1,
-	element(Up, Result, UpValue),
-	element(Down, Result, DownValue),
-	element(Right, Result, RightValue),
-	element(Left, Result, LeftValue),
-	UpValue #= 0, DownValue #= 0, RightValue #= 0, LeftValue #= 0,
-	NextPosition #= Position + 1,
-	checkBlacksAdjacentCells(Result, N, NextPosition).
-
-
-
-sameRowAfterMovingRight(OriginalPosition, Position, N):-
-	Position mod N #= 1.
-sameRowAfterMovingRight(OriginalPosition, Position, N):-
-	OriginalPosition mod N #< Position mod N.
-
-sameRowAfterMovingLeft(OriginalPosition, Position, N):-
-	OriginalPosition mod N #= 1.
-sameRowAfterMovingLeft(OriginalPosition, Position, N):-
-	Position mod N #< OriginalPosition mod N.
-
+checkAdjacentCellsRow([_ | []]).
+checkAdjacentCellsRow([First, Second | Tail]):-
+	First #>0, Second #= 0,
+	checkAdjacentCellsRow([Second | Tail]).
+checkAdjacentCellsRow([_ | Tail]):-
+	checkAdjacentCellsRow(Tail).
