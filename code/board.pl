@@ -10,12 +10,12 @@ defaultInfoList(
 
 defaultIndexList(
 	[
-		0, 1, 0, 0, 0, 2,
-		0, 0, 3, 0, 4, 0,
-		0, 5, 0, 0, 0, 0,
-		6, 0, 0, 7, 0, 8,
+		0, 0, 0, 1, 0, 0,
+		1, 0, 0, 0, 0, 1,
+		0, 0, 1, 0, 0, 0,
+		0, 1, 0, 1, 0, 1,
 		0, 0, 0, 0, 0, 0,
-		0, 9, 0, 10, 0, 0
+		0, 1, 0, 1, 0, 1
 	]).
 
 
@@ -124,7 +124,7 @@ clearPosition(Row, Col, [Head | Tail], [Head | RTail]):-
 	clearPosition(NewRow, Col, Tail, RTail).
 
 	%SET %POSITION
-setPosition(_, _, _, [], _):- nl, write('setPosition out of range.'), abort.
+%setPosition(_, _, _, [], _):- nl, write('setPosition out of range.'), abort.
 
 setPosition(0, 1, Info, [_ | Tail], [Info | Tail]).
 
@@ -149,3 +149,9 @@ clearBoard([Head | Tail], [RHead | RTail]):-
 clearRow([], []).
 clearRow([_ | Tail], [' ' | RTail]):-
 	clearRow(Tail, RTail).
+
+
+	%GET %POSITION
+getPosition(Row, Col, Info, Board):-
+	nth1(Row, Board, List),
+	element(Col, List, Info).

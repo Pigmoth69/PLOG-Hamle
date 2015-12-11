@@ -33,14 +33,13 @@ getBlackCells([Head | Tail], [Head | Blacklist]):-
 solution(Values, NumberWhites, N, Result):-
 	length(Values, Length),
 	length(Result, Length),
-	setUpBoard(Values, N, ValuesBoard),
 	setUpBoard(Result, N, ResultBoard),
 	domain(Result, 0, 5),
 
 	count(0, Result, #=, NumberWhites),
-	
 	restrictMovements(Values,NumberWhites,N,Result),
 	blacksNotAdjacent(ResultBoard),
+	%whiteInterconnection(ResultBoard, NumberWhites, N),
 
 	print(Result),nl,
 	labeling([], Result).
@@ -75,135 +74,89 @@ checkAdjacentCellsLine([_ | Tail]):-
 
 
 %***************************************%
-%*****BLACKS MOVEMENTS CONSTRAIN********%
+%******BLACKS MOVEMENTS CONSTRAIN*******%
 %***************************************%
 
 createTuples(0,[]).
 
-createTuples(NumberBlacks,[L|ListTuples]):- NumberBlacks> 0,N1 is NumberBlacks - 1, length(L,1),createTuples(N1,ListTuples).
+createTuples(NumberBlacks,[L|ListTuples]):- 
+	NumberBlacks> 0, N1 #= NumberBlacks - 1, length(L,1),createTuples(N1,ListTuples).
 
-checkIfRight(Index-Value,N,[Dest]):-OriginalFloor is floor((Index-1) / N),
-									Dest is (Index + Value),
-									DestFloor is floor((Dest-1) / N),
-									DestFloor =:= OriginalFloor.
-							
-
+checkIfRight(Index-Value,N,[Dest]):-
+	OriginalFloor is floor((Index-1) / N),
+	Dest #= (Index + Value),
+	DestFloor is floor((Dest-1) / N),
+	DestFloor =:= OriginalFloor.
 checkIfRight(_,_,[]).
 
-checkIfLeft(Index-Value,N,[Dest]):-OriginalFloor is floor((Index-1) / N),
-									Dest is (Index - Value),
-									DestFloor is floor((Dest-1)/N),
-									DestFloor =:= OriginalFloor.
-							
-
+checkIfLeft(Index-Value,N,[Dest]):-
+	OriginalFloor is floor((Index-1) / N),
+	Dest #= (Index - Value),
+	DestFloor is floor((Dest-1)/N),
+	DestFloor =:= OriginalFloor.
 checkIfLeft(_,_,[]).
 
-checkIfUp(Index-Value,N,[Dest]):-Dest is (Index - Value*N),
-									Dest >= 1.
-									
+checkIfUp(Index-Value,N,[Dest]):-
+	Dest is (Index - Value*N),
+	Dest >= 1.		
 checkIfUp(_,_,[]).
 
-checkIfDown(Index-Value,N,[Dest]):-Dest is (Index + Value*N),
-									Dest =< (N*N).
-									
+checkIfDown(Index-Value,N,[Dest]):-
+	Dest is (Index + Value*N),
+	Dest =< (N*N).
 checkIfDown(_,_,[]).
 
 tablingTuples([],[],_).
 
 tablingTuples([Tuple|ListTuples],[Piece|ListBlacks],N):-
-									checkIfRight(Piece,N,Dest1),
-									checkIfLeft(Piece,N,Dest2),
-									checkIfUp(Piece,N,Dest3),
-									checkIfDown(Piece,N,Dest4),
-									table([[Tuple]],[Dest1,Dest2,Dest3,Dest4]),
-									tablingTuples(ListTuples,ListBlacks,N).
+	checkIfRight(Piece,N,Dest1),
+	checkIfLeft(Piece,N,Dest2),
+	checkIfUp(Piece,N,Dest3),
+	checkIfDown(Piece,N,Dest4),
+	table([[Tuple]],[Dest1,Dest2,Dest3,Dest4]),
+	tablingTuples(ListTuples,ListBlacks,N).
 
-
-putPiecesInBoard([],[],_):-print('aqui').									
-									
-putPiecesInBoard([Tuple|ListTuples],[_-Value | ListBlacks],Result):-element(Tuple,Result,Value),
-																	putPiecesInBoard(ListTuples, ListBlacks ,Result).
-
-
+putPiecesInBoard([],[],_).				
+putPiecesInBoard([Tuple|ListTuples],[_-Value | ListBlacks],Result):-
+	element(Tuple,Result,Value),
+	putPiecesInBoard(ListTuples, ListBlacks ,Result).
 
 restrictMovements(Board,NumberWhites,N,Result):-
-				NumberBlacks is (N*N)-NumberWhites,
-				length(ListTuples,NumberBlacks),
-				findall(Index-Value,(nth1(Index,Board,Value),Value>0),ListBlacks),
-				tablingTuples(ListTuples,ListBlacks,N),
-				all_different(ListTuples),
-				putPiecesInBoard(ListTuples,ListBlacks,Result).
+	NumberBlacks #= (N*N)-NumberWhites,
+	length(ListTuples,NumberBlacks),
+	findall(Index-Value,(nth1(Index,Board,Value),Value>0),ListBlacks),
+	tablingTuples(ListTuples,ListBlacks,N),
+	all_different(ListTuples),
+	putPiecesInBoard(ListTuples,ListBlacks,Result).
 
 
 
+%***************************************%
+%*******WHITE INTERCONNECTION***********%
+%***************************************%
+whiteInterconnection([RHead | RTail], NumberWhites, N):-
+	generateBoard(N, N, RegisterBoard),
+	findFirstWhite(1, RHead, Col),
+	floodWhites(1, Col, [RHead | RTail], RegisterBoard, _, NumberWhites).
 
-blacksMovement(_, _, _, 0).
-blacksMovement(Values, Result, N, Position):-
-	element(Position, Values, Value), Value > 0, moveBlack(Result, Position, Value, N),write('Chega aqui'),
-	NextPosition is Position - 1,
-	blacksMovement(Values, Result, N, NextPosition).
-blacksMovement(Values, Result, N, Position):-
-	NextPosition is Position - 1,
-	blacksMovement(Values, Result, N, NextPosition).
+findFirstWhite(Col, [Head | _], Col):-
+	Head #= 0.
+findFirstWhite(Col, [_ | RTail], FinalCol):-
+	NextCol is Col + 1,
+	findFirstWhite(NextCol, RTail, FinalCol).
 
-moveBlack(Result, Position, Value, N):-
-	(NewPosition #= Position - N*Value),
-	element(NewPosition, Result, 1),
-	write(NewPosition),nl.
-moveBlack(Result, Position, Value, N):-
-	(NewPosition #= Position + N*Value),
-	element(NewPosition, Result, 2),
-	write(NewPosition),nl.
-moveBlack(Result, Position, Value, _):-
-	(NewPosition #= Position - Value),
-	element(NewPosition, Result, 3),
-	write(NewPosition),nl.
-moveBlack(Result, Position, Value, _):-
-	(NewPosition #= Position + Value),
-	element(NewPosition, Result, 4),
-	write(NewPosition),nl.
-
-/*
-blacksMovement(ResultBoard, ValuesBoard):-
-	checkHorizontalMovement(ValuesBoard, ResultBoard).
-blacksMovement(ResultBoard, ValuesBoard):-
-	transpose(ResultBoard, TResultBoard),
-	transpose(ValuesBoard, TValuesBoard),
-	checkVerticalMovement(TValuesBoard, TResultBoard).
-
-checkHorizontalMovement([], _).
-checkHorizontalMovement([Head | Tail], [RHead | RTail]):-
-	is_list(Head),
-	checkHorizontalMovement(Head, RHead),
-	checkHorizontalMovementLine(Tail, RTail).
-%esquerda
-checkHorizontalMovementLine(Values, Result):-
-	element(Position, Values, Value),
-	Value #> 0,
-	NewPosition #= Position - Value,
-	element(NewPosition, Result, 3).
-%direita
-checkHorizontalMovementLine(Values, Result):-
-	element(Position, Values, Value),
-	Value #> 0,
-	NewPosition #= Position + Value,
-	element(NewPosition, Result, 4).
-
-checkVerticalMovement([], _).
-checkVerticalMovement([Head | Tail], [RHead | RTail]):-
-	is_list(Head),
-	checkVerticalMovementLine(Head, RHead),
-	checkVerticalMovement(Tail, RTail).
-%cima
-checkVerticalMovementLine(Values, Result):-
-	element(Position, Values, Value),
-	Value #> 0,
-	NewPosition #= Position - Value,
-	element(NewPosition, Result, 1).
-%baixo
-checkVerticalMovementLine(Values, Result):-
-	element(Position, Values, Value),
-	Value #> 0,
-	NewPosition #= Position + Value,
-	element(NewPosition, Result, 2).
-	*/
+floodWhites(Row, Col, ResultBoard, RegisterBoard, FinalRegisterBoard, ConnectedWhites):-
+	Value #= 0,
+	getPosition(Row, Col, Value, ResultBoard),
+	getPosition(Row, Col, 0, RegisterBoard),
+	setPosition(Row, Col, 1, RegisterBoard, R1),
+	NextRow is Row + 1,
+	PrevRow is Row - 1,
+	NextCol is Col + 1,
+	PrevCol is Col - 1,
+	floodWhites(NextRow, Col, ResultBoard, R1, R2, W1),
+	floodWhites(PrevRow, Col, ResultBoard, R2, R3, W2),
+	floodWhites(Row, NextCol, ResultBoard, R3, R4, W3),
+	floodWhites(Row, PrevCol, ResultBoard, R4, FinalRegisterBoard, W4),
+	ConnectedWhites #= 1 + W1 + W2 + W3 + W4.
+floodWhites(_,_,_,R,R,0).
