@@ -1,0 +1,16 @@
+\chapter{Descri\c{c}\~ao do Problema}
+\label{intro} % Always give a unique label
+% use \chaptermark{}
+% to alter or adjust the chapter heading in the running head
+
+O problema em an\'alise deve ser abordado segundo as restri\c{c}\~oes descritas nas regras do jogo:\\
+\\
+\begin{itemize}
+	\item Cada pe\c{c}a preta deve ser deslocada, em qualquer uma das quatro dire\c{c}\~oes poss\'iveis, o n\'umero de c\'elulas correspondente ao valor que lhe est\'a atribu\'ido.
+	
+	\item No final do movimento das pe\c{c}as pretas, nenhuma delas dever\'a ser adjacente a qualquer outra pe\c{c}a.
+	
+	\item Al\'em da restri\c{c}\~ao anterior, na conclus\~ao dos deslocamentos das pe\c{c}as, deve-se verificar que todas as c\'elulas vazias dever\~ao estar interligadas entre si, ou seja, selecionando qualquer posi\c{c}\~ao livre do tabuleiro, deve ser poss\'ivel encontrar um caminho at\'e qualquer outra c\'elula desocupada, sem saltar por cima de qualquer pe\c{c}a preta.
+\end{itemize}
+
+O alcance de uma solu\c{c}\~ao correta \'e apenas poss\'ivel recorrendo a implementa\c{c}\~ao das restri\c{c}\~oes apresentadas. Dado que qualquer uma delas \'e dependente dos resultado das restantes, \'e importante recorrer a programa\c{c}\~ao l\'ogica com restr\c{c}\~oes de modo a determinar uma resolu\c{c}\~ao r\'apida e eficaz.
