@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2015.11.7)  12 DEC 2015 14:55
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2015.11.7)  12 DEC 2015 15:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -169,21 +169,22 @@ Package footmisc Info: Declaring symbol style lamport*-robust on input line 924
 
 Writing index file book.idx
 (./book.aux (./abstract.aux) (./intro.aux) (./description.aux) (./approach.aux)
-(./referenc.aux))
+(./display.aux) (./results.aux) (./conclusion.aux) (./referenc.aux)
+(./annex.aux))
 \openout1 = `book.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
-LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
  (c:/texlive/2015/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count102
@@ -245,7 +246,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Underfull \hbox (badness 6094) in paragraph at lines 43--43
+Underfull \hbox (badness 6094) in paragraph at lines 27--27
  
  []
 
@@ -323,11 +324,47 @@ Chapter 3.
 
 
 ]
+\openout2 = `display.aux'.
+
+ (./display.tex
+Chapter 4.
+) [4
+
+
+
+
+]
+\openout2 = `results.aux'.
+
+ (./results.tex
+Chapter 5.
+) [5
+
+
+
+
+]
+\openout2 = `conclusion.aux'.
+
+ (./conclusion.tex
+Chapter 6.
+) [6
+
+
+
+
+]
 \openout2 = `referenc.aux'.
 
- (./referenc.tex) [4
+ (./referenc.tex) [7
 
 
+
+
+]
+\openout2 = `annex.aux'.
+
+ (./annex.tex) [8
 
 
 
@@ -335,27 +372,28 @@ Chapter 3.
 ]
 No file book.ind.
 (./book.aux (./abstract.aux) (./intro.aux) (./description.aux) (./approach.aux)
-(./referenc.aux)) ) 
+(./display.aux) (./results.aux) (./conclusion.aux) (./referenc.aux)
+(./annex.aux)) ) 
 Here is how much of TeX's memory you used:
- 2156 strings out of 493054
- 29264 string characters out of 6138327
- 97051 words of memory out of 5000000
- 5640 multiletter control sequences out of 15000+600000
+ 2187 strings out of 493054
+ 29621 string characters out of 6138327
+ 98271 words of memory out of 5000000
+ 5644 multiletter control sequences out of 15000+600000
  6401 words of font info for 23 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  37i,4n,23p,597b,148s stack positions out of 5000i,500n,10000p,200000b,80000s
-<c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/c
-mbx10.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texli
-ve/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2015/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2015/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2015/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmti10.pfb>
-Output written on book.pdf (8 pages, 112977 bytes).
+<c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
+10.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c
+:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/
+2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2015/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2015/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2015/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy10.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmti10.pfb>
+Output written on book.pdf (12 pages, 117654 bytes).
 PDF statistics:
- 63 PDF objects out of 1000 (max. 8388607)
- 44 compressed objects within 1 object stream
+ 75 PDF objects out of 1000 (max. 8388607)
+ 52 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

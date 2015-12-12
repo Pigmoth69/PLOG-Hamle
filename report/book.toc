@@ -1,4 +1,7 @@
 \contentsline {chapter}{\numberline {1}Introdu\c {c}\~ao}{1}
 \contentsline {chapter}{\numberline {2}Descri\c {c}\~ao do Problema}{2}
 \contentsline {chapter}{\numberline {3}Abordagem}{3}
-\contentsline {chapter}{References}{4}
+\contentsline {chapter}{\numberline {4}Visualiza\c {c}\~ao da Solu\c {c}\~ao}{4}
+\contentsline {chapter}{\numberline {5}Resultados}{5}
+\contentsline {chapter}{\numberline {6}Conclus\~oes e Trabalho Futuro}{6}
+\contentsline {chapter}{References}{7}
