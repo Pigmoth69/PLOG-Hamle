@@ -27,6 +27,12 @@ getEnter :-	get_char(_).
 
 
 
+reset_timer :- statistics(walltime,_).	
+print_time :-
+	statistics(walltime,[_,T]),
+	TS is ((T//10)*10)/100,
+	nl, write('Time: '), write(TS), write('s'), nl, nl.
+
 
 
 

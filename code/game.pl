@@ -6,7 +6,7 @@ defaultGame:-
 	setUpBoard(Info, 6, Board),
 	displayBoard(Board),
 	getEnter,
-	solution(Info,26, 6, 36, Result),
+	solution(Info,26, 6, Result),
 	setUpBoard(Result, 6, FinalBoard),
 	displayBoard(FinalBoard).
 
@@ -36,13 +36,15 @@ solution(Values, NumberWhites, N, Result):-
 	setUpBoard(Result, N, ResultBoard),
 	domain(Result, 0, 5),
 
-	count(0, Result, #=, NumberWhites),
 	restrictMovements(Values,NumberWhites,N,Result),
 	blacksNotAdjacent(ResultBoard),
 	%whiteInterconnection(ResultBoard, NumberWhites, N),
 
-	print(Result),nl,
-	labeling([], Result).
+	%print(Result),nl,
+	reset_timer,
+	labeling([], Result),
+	print_time,
+	fd_statistics.
 
 
 

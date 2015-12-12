@@ -1,7 +1,14 @@
 \contentsline {chapter}{\numberline {1}Introdu\c {c}\~ao}{1}
 \contentsline {chapter}{\numberline {2}Descri\c {c}\~ao do Problema}{2}
 \contentsline {chapter}{\numberline {3}Abordagem}{3}
-\contentsline {chapter}{\numberline {4}Visualiza\c {c}\~ao da Solu\c {c}\~ao}{4}
-\contentsline {chapter}{\numberline {5}Resultados}{5}
-\contentsline {chapter}{\numberline {6}Conclus\~oes e Trabalho Futuro}{6}
-\contentsline {chapter}{References}{7}
+\contentsline {section}{\numberline {3.1}Vari\'aveis de Decis\~ao}{3}
+\contentsline {section}{\numberline {3.2}Restri\c {c}\~oes}{4}
+\contentsline {subsection}{\numberline {3.2.1}Pe\c {c}as n\~ao-adjacentes}{4}
+\contentsline {subsection}{\numberline {3.2.2}Movimento de pe\c {c}as pretas}{5}
+\contentsline {subsection}{\numberline {3.2.3}Interconectividade das c\'elulas vazias}{6}
+\contentsline {section}{\numberline {3.3}Fun\c {c}\~ao de Avalia\c {c}\~ao}{7}
+\contentsline {section}{\numberline {3.4}Estrat\'egia de Pesquisa}{7}
+\contentsline {chapter}{\numberline {4}Visualiza\c {c}\~ao da Solu\c {c}\~ao}{8}
+\contentsline {chapter}{\numberline {5}Resultados}{9}
+\contentsline {chapter}{\numberline {6}Conclus\~oes e Trabalho Futuro}{10}
+\contentsline {chapter}{References}{11}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2015.11.7)  12 DEC 2015 15:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/W32TeX) (preloaded format=pdflatex 2015.11.7)  12 DEC 2015 20:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -318,17 +318,175 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 
  (./approach.tex
 Chapter 3.
-) [3
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 9.
+
+
+LaTeX Font Warning: Command \small invalid in math mode on input line 9.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--10
+
+ []
+
+[3
 
 
 
 
-]
+] <no-adjacents.png, id=34, 402.90524pt x 320.397pt>
+File: no-adjacents.png Graphic file (type png)
+ <use no-adjacents.png>
+Package pdftex.def Info: no-adjacents.png used on input line 18.
+(pdftex.def)             Requested size: 201.45212pt x 160.1981pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--22
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 16--22
+
+ []
+
+[4 <./no-adjacents.png>]
+<movement-checkers.png, id=40, 638.98724pt x 427.5975pt>
+File: movement-checkers.png Graphic file (type png)
+
+<use movement-checkers.png>
+Package pdftex.def Info: movement-checkers.png used on input line 26.
+(pdftex.def)             Requested size: 319.49284pt x 213.79822pt.
+
+<movement-validators.png, id=41, 567.3195pt x 349.305pt>
+File: movement-validators.png Graphic file (type png)
+
+<use movement-validators.png>
+Package pdftex.def Info: movement-validators.png used on input line 30.
+(pdftex.def)             Requested size: 226.92378pt x 139.71951pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--33
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--33
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 24--33
+
+ []
+
+[5 <./movement-checkers.png>]
+<white-interconnection.png, id=46, 670.30424pt x 394.47375pt>
+File: white-interconnection.png Graphic file (type png)
+
+<use white-interconnection.png>
+Package pdftex.def Info: white-interconnection.png used on input line 38.
+(pdftex.def)             Requested size: 335.1513pt x 197.23639pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--42
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--42
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--42
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--42
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 35--42
+
+ []
+
+[6 <./movement-validators.png> <./white-interconnection.png>]) [7]
 \openout2 = `display.aux'.
 
- (./display.tex
+
+(./display.tex
 Chapter 4.
-) [4
+) [8
 
 
 
@@ -338,7 +496,7 @@ Chapter 4.
 
  (./results.tex
 Chapter 5.
-) [5
+) [9
 
 
 
@@ -348,7 +506,7 @@ Chapter 5.
 
  (./conclusion.tex
 Chapter 6.
-) [6
+) [10
 
 
 
@@ -356,7 +514,7 @@ Chapter 6.
 ]
 \openout2 = `referenc.aux'.
 
- (./referenc.tex) [7
+ (./referenc.tex) [11
 
 
 
@@ -364,7 +522,7 @@ Chapter 6.
 ]
 \openout2 = `annex.aux'.
 
- (./annex.tex) [8
+ (./annex.tex) [12
 
 
 
@@ -375,25 +533,26 @@ No file book.ind.
 (./display.aux) (./results.aux) (./conclusion.aux) (./referenc.aux)
 (./annex.aux)) ) 
 Here is how much of TeX's memory you used:
- 2187 strings out of 493054
- 29621 string characters out of 6138327
- 98271 words of memory out of 5000000
- 5644 multiletter control sequences out of 15000+600000
- 6401 words of font info for 23 fonts, out of 8000000 for 9000
+ 2209 strings out of 493054
+ 30141 string characters out of 6138327
+ 100275 words of memory out of 5000000
+ 5661 multiletter control sequences out of 15000+600000
+ 6708 words of font info for 24 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 37i,4n,23p,597b,148s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 37i,5n,23p,960b,159s stack positions out of 5000i,500n,10000p,200000b,80000s
 <c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx
 10.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c
-:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/
-2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2015/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2015/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr9.pfb><c:/texlive/2015/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy10.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmti10.pfb>
-Output written on book.pdf (12 pages, 117654 bytes).
+:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/texlive
+/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2015/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><c:/texlive/2015/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr17.pfb><c:/texlive/2015/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmr9.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmsy10.pfb><c:/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ti10.pfb>
+Output written on book.pdf (16 pages, 451620 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
- 52 compressed objects within 1 object stream
+ 101 PDF objects out of 1000 (max. 8388607)
+ 65 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
