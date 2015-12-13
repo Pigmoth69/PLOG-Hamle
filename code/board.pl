@@ -155,3 +155,132 @@ clearRow([_ | Tail], [' ' | RTail]):-
 getPosition(Row, Col, Info, Board):-
 	nth1(Row, Board, List),
 	element(Col, List, Info).
+
+
+
+%--------------------------------------------------------%
+%-----------Functions to deploy the black pieces---------%
+%--------------------------------------------------------%
+
+deployBlacks(Board, _, 0, Board).
+deployBlacks(Board, Size, NumberBlacks, BoardWithBlacks):-
+	Max is Size + 1,
+	random(1, Max, Row), random(1, Max, Col),
+	NextRow is Row + 1,
+	NextCol is Col + 1,
+	PrevRow is Row - 1, 
+	PrevCol is Col - 1,
+	checkIfPositionIsFree(Row, Col, Max, Board),
+	checkIfPositionIsFree(NextRow, Col, Max, Board),
+	checkIfPositionIsFree(Row, NextCol, Max, Board),
+	checkIfPositionIsFree(PrevRow, Col, Max, Board),
+	checkIfPositionIsFree(Row, PrevCol, Max, Board),
+	setPosition(Row, Col, 1, Board, ResultBoard),
+	NewRowNumberBlacks is NumberBlacks - 1,
+	deployBlacks(ResultBoard, Size, NewRowNumberBlacks, BoardWithBlacks).
+deployBlacks(Board, Size, NumberBlacks, BoardWithBlacks):-
+	deployBlacks(Board, Size, NumberBlacks, BoardWithBlacks).
+
+
+
+%--------------------------------------------------------%
+%-----------Functions to checks if free cell-------------%
+%--------------------------------------------------------%
+
+checkIfPositionIsFree(Row, Col, Size, _):-
+	Col = Size; Col = 0; Row = Size; Row = 0.
+checkIfPositionIsFree(Row, Col, Size, Board):-
+	nth1(Row, Board, R),
+	nth1(Col, R, 0).
+
+%--------------------------------------------------------%
+%-----------Functions to move black pieces---------------%
+%--------------------------------------------------------%
+
+
+moveBlacks(Row, _, _, Board, Size, Board):-
+	Row > Size.
+moveBlacks(Row, Col, BoardWithBlacks, Board, Size, ResultBoard):-
+	Col > Size, 
+	NextRow is Row + 1,
+	print('extra col'), nl,
+	moveBlacks(NextRow, 1, BoardWithBlacks, Board, Size, ResultBoard).
+moveBlacks(Row, Col, BoardWithBlacks, Board, Size, ResultBoard):-
+	print(Row), write(' '), print(Col), nl,
+	print('blacks'), nl,
+	nth1(Row, BoardWithBlacks, R),
+	nth1(Col, R, 1),
+	generateMovement(Row, Col, Board, Size, NewBoard),
+	NextCol is Col + 1,
+	moveBlacks(Row, NextCol, BoardWithBlacks, NewBoard, Size, ResultBoard).
+moveBlacks(Row, Col, BoardWithBlacks, Board, Size, ResultBoard):-
+	NextCol is Col + 1,
+	moveBlacks(Row, NextCol, BoardWithBlacks, Board, Size, ResultBoard).
+
+generateMovement(Row, Col, Board, Size, NewBoard):-
+	print('generating'), nl,
+	random(1, 5, Orientation),
+	move(Orientation, Row, Col, Board, Size, NewBoard).
+
+%mover para a direita
+move(1, Row, Col, Board, Size, NewBoard):-
+	print('right'), nl,
+	Col < Size,
+	Max is Size - Col + 1,
+	random(1, Max, Delta),
+	NewCol is Col + Delta,
+	checkIfPositionIsFree(Row, NewCol, Size, Board),
+	setPosition(Row, NewCol, Delta, Board, NewBoard).
+%mover para a esquerda
+move(2, Row, Col, Board, Size, NewBoard):-
+	print('left'), nl,
+	Col > 1,
+	Max is Col,
+	random(1, Max, Delta),
+	NewCol is Col - Delta,
+	checkIfPositionIsFree(Row, NewCol, Size, Board),
+	setPosition(Row, NewCol, Delta, Board, NewBoard).
+%mover para cima
+move(3, Row, Col, Board, Size, NewBoard):-
+	print('up'), nl,
+	Row > 1,
+	Max is Row,
+	random(1, Max, Delta),
+	NewRow is Row - Delta,
+	checkIfPositionIsFree(NewRow, Col, Size, Board),
+	setPosition(NewRow, Col, Delta, Board, NewBoard).
+%mover para baixo
+move(4, Row, Col, Board, Size, NewBoard):-
+	print('down'), nl,
+	Row < Size,
+	Max is Size - Row + 1,
+	random(1, Max, Delta),
+	NewRow is Row + Delta,
+	checkIfPositionIsFree(NewRow, Col, Size, Board),
+	setPosition(NewRow, Col, Delta, Board, NewBoard).
+
+move(_,Row, Col, Board, Size, NewBoard):-
+	print('fail'), nl,
+	generateMovement(Row, Col, Board, Size, NewBoard).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+flattenBoard([], List, List).
+flattenBoard([Head | Tail], List, BoardList):-
+	append(List, Head, Result),
+	flattenBoard(Tail, Result, BoardList).

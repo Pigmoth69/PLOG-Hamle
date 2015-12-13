@@ -12,8 +12,19 @@ defaultGame:-
 
 newGame:- 
 	getBoardSize(Size),
-	generateBoard(Size,Size,Board),
-	displayBoard(Board).
+	generateBoard(Size,Size,EmptyReferenceBoard),
+	NumberBlacks is floor(Size*Size / 3),
+	deployBlacks(EmptyReferenceBoard, Size, NumberBlacks, BoardWithBlacks),
+	generateBoard(Size, Size, InitialBoard),
+	print('moveblacks'), nl,
+	moveBlacks(1, 1, BoardWithBlacks, InitialBoard, Size, Board),
+	displayBoard(Board),
+	getEnter,
+	NumberWhites is Size*Size - NumberBlacks,
+	flattenBoard(Board, [], BoardList),
+	solution(BoardList, NumberWhites, Size, Result),
+	setUpBoard(Result, Size, FinalBoard),
+	displayBoard(FinalBoard).
 
 
 %-------------------------------------%
