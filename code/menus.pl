@@ -54,3 +54,18 @@ printGetBoardSize:-
 	write('||          New Game           ||'), nl,
 	write('*********************************'), nl,
 	write('Insert the board dimension(XX): ').
+
+getLabelingType(Type):- 
+	printGetLabelingType,
+	getInteger(Type), 
+	Type < 3.
+
+printGetLabelingType:-
+	clearScreen,
+	write('**************************************'), nl,
+	write('||          Labeling type           ||'), nl,
+	write('||   1 - Default                    ||'), nl,
+	write('||   2 - FFC                        ||'), nl,
+	write('||                                  ||'), nl,
+	write('**************************************'), nl,
+	write('Insert labeling type: ').

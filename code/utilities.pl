@@ -34,8 +34,8 @@ startSeed:-
 reset_timer :- statistics(walltime,_).	
 print_time :-
 	statistics(walltime,[_,T]),
-	TS is ((T//10)*10)/100,
-	nl, write('Time: '), write(TS), write('s'), nl, nl.
+	TS is ((T//10)*10),
+	nl, write('Time: '), write(TS), write('ms'), nl, nl.
 
 
 

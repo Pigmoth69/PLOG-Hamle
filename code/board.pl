@@ -152,10 +152,18 @@ clearRow([_ | Tail], [' ' | RTail]):-
 
 
 	%GET %POSITION
-getPosition(Row, Col, Info, Board):-
-	nth1(Row, Board, List),
-	element(Col, List, Info).
+getPosition(0, 1, Info, [Info | _]).
 
+getPosition(0, Col, Info, [Head | Tail]):-
+	NewCol is Col - 1,
+	getPosition(0, NewCol, Info, Tail).
+
+getPosition(1, Col, Info, [Head | Tail]):-
+	getPosition(0, Col, Info, Head).
+
+getPosition(Row, Col, Info, [Head | Tail]):-
+	NewRow is Row - 1,
+	getPosition(NewRow, Col, Info, Tail).
 
 
 %--------------------------------------------------------%
@@ -203,13 +211,9 @@ moveBlacks(Row, _, _, Board, Size, Board):-
 moveBlacks(Row, Col, BoardWithBlacks, Board, Size, ResultBoard):-
 	Col > Size, 
 	NextRow is Row + 1,
-	print('extra col'), nl,
 	moveBlacks(NextRow, 1, BoardWithBlacks, Board, Size, ResultBoard).
 moveBlacks(Row, Col, BoardWithBlacks, Board, Size, ResultBoard):-
-	print(Row), write(' '), print(Col), nl,
-	print('blacks'), nl,
-	nth1(Row, BoardWithBlacks, R),
-	nth1(Col, R, 1),
+	getPosition(Row, Col, 1, BoardWithBlacks),
 	generateMovement(Row, Col, Board, Size, NewBoard),
 	NextCol is Col + 1,
 	moveBlacks(Row, NextCol, BoardWithBlacks, NewBoard, Size, ResultBoard).
@@ -218,13 +222,11 @@ moveBlacks(Row, Col, BoardWithBlacks, Board, Size, ResultBoard):-
 	moveBlacks(Row, NextCol, BoardWithBlacks, Board, Size, ResultBoard).
 
 generateMovement(Row, Col, Board, Size, NewBoard):-
-	print('generating'), nl,
 	random(1, 5, Orientation),
 	move(Orientation, Row, Col, Board, Size, NewBoard).
 
 %mover para a direita
 move(1, Row, Col, Board, Size, NewBoard):-
-	print('right'), nl,
 	Col < Size,
 	Max is Size - Col + 1,
 	random(1, Max, Delta),
@@ -233,7 +235,6 @@ move(1, Row, Col, Board, Size, NewBoard):-
 	setPosition(Row, NewCol, Delta, Board, NewBoard).
 %mover para a esquerda
 move(2, Row, Col, Board, Size, NewBoard):-
-	print('left'), nl,
 	Col > 1,
 	Max is Col,
 	random(1, Max, Delta),
@@ -242,7 +243,6 @@ move(2, Row, Col, Board, Size, NewBoard):-
 	setPosition(Row, NewCol, Delta, Board, NewBoard).
 %mover para cima
 move(3, Row, Col, Board, Size, NewBoard):-
-	print('up'), nl,
 	Row > 1,
 	Max is Row,
 	random(1, Max, Delta),
@@ -251,7 +251,6 @@ move(3, Row, Col, Board, Size, NewBoard):-
 	setPosition(NewRow, Col, Delta, Board, NewBoard).
 %mover para baixo
 move(4, Row, Col, Board, Size, NewBoard):-
-	print('down'), nl,
 	Row < Size,
 	Max is Size - Row + 1,
 	random(1, Max, Delta),
@@ -260,21 +259,7 @@ move(4, Row, Col, Board, Size, NewBoard):-
 	setPosition(NewRow, Col, Delta, Board, NewBoard).
 
 move(_,Row, Col, Board, Size, NewBoard):-
-	print('fail'), nl,
 	generateMovement(Row, Col, Board, Size, NewBoard).
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

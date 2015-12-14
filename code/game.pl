@@ -2,27 +2,27 @@
 :- use_module(library(lists)).
 
 defaultGame:- 
+	getLabelingType(Type),
 	defaultInfoList(Info),
 	setUpBoard(Info, 6, Board),
 	displayBoard(Board),
 	getEnter,
-	solution(Info,26, 6, Result),
+	solution(Type, Info, 26, 6, Result),
 	setUpBoard(Result, 6, FinalBoard),
 	displayBoard(FinalBoard).
 
 newGame:- 
-	getBoardSize(Size),
+	getBoardSize(Size),getLabelingType(Type),
 	generateBoard(Size,Size,EmptyReferenceBoard),
-	NumberBlacks is floor(Size*Size / 3),
+	NumberBlacks is Size,
 	deployBlacks(EmptyReferenceBoard, Size, NumberBlacks, BoardWithBlacks),
 	generateBoard(Size, Size, InitialBoard),
-	print('moveblacks'), nl,
 	moveBlacks(1, 1, BoardWithBlacks, InitialBoard, Size, Board),
 	displayBoard(Board),
 	getEnter,
 	NumberWhites is Size*Size - NumberBlacks,
 	flattenBoard(Board, [], BoardList),
-	solution(BoardList, NumberWhites, Size, Result),
+	solution(Type, BoardList, NumberWhites, Size, Result),
 	setUpBoard(Result, Size, FinalBoard),
 	displayBoard(FinalBoard).
 
@@ -41,11 +41,12 @@ getBlackCells([Head | Tail], [Head | Blacklist]):-
 %------------------------------------%
 %--------------SOLUTION--------------%
 %------------------------------------%
-solution(Values, NumberWhites, N, Result):-
+solution(1, Values, NumberWhites, N, Result):-
 	length(Values, Length),
 	length(Result, Length),
+	Max #= N - 1,
 	setUpBoard(Result, N, ResultBoard),
-	domain(Result, 0, 5),
+	domain(Result, 0, Max),
 
 	restrictMovements(Values,NumberWhites,N,Result),
 	blacksNotAdjacent(ResultBoard),
@@ -54,6 +55,23 @@ solution(Values, NumberWhites, N, Result):-
 	%print(Result),nl,
 	reset_timer,
 	labeling([], Result),
+	print_time,
+	fd_statistics.
+
+solution(2, Values, NumberWhites, N, Result):-
+	length(Values, Length),
+	length(Result, Length),
+	Max #= N - 1,
+	setUpBoard(Result, N, ResultBoard),
+	domain(Result, 0, Max),
+
+	restrictMovements(Values,NumberWhites,N,Result),
+	blacksNotAdjacent(ResultBoard),
+	%whiteInterconnection(ResultBoard, NumberWhites, N),
+
+	%print(Result),nl,
+	reset_timer,
+	labeling([ffc], Result),
 	print_time,
 	fd_statistics.
 
@@ -93,20 +111,23 @@ checkAdjacentCellsLine([_ | Tail]):-
 createTuples(0,[]).
 
 createTuples(NumberBlacks,[L|ListTuples]):- 
-	NumberBlacks> 0, N1 #= NumberBlacks - 1, length(L,1),createTuples(N1,ListTuples).
+	NumberBlacks> 0, 
+	N1 #= NumberBlacks - 1, 
+	length(L,1),
+	createTuples(N1,ListTuples).
 
 checkIfRight(Index-Value,N,[Dest]):-
 	OriginalFloor is floor((Index-1) / N),
 	Dest #= (Index + Value),
 	DestFloor is floor((Dest-1) / N),
-	DestFloor =:= OriginalFloor.
+	DestFloor = OriginalFloor.
 checkIfRight(_,_,[]).
 
 checkIfLeft(Index-Value,N,[Dest]):-
 	OriginalFloor is floor((Index-1) / N),
 	Dest #= (Index - Value),
 	DestFloor is floor((Dest-1)/N),
-	DestFloor =:= OriginalFloor.
+	DestFloor = OriginalFloor.
 checkIfLeft(_,_,[]).
 
 checkIfUp(Index-Value,N,[Dest]):-
